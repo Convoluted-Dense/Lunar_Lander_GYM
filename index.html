@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reinforcement Learning — Overview, Mechanics & Applications</title>
+  <meta name="description" content="A simple, concise, monochrome presentation deck on Reinforcement Learning covering foundations, mechanics, advantages, uniqueness, and applications.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-dark" data-active-slide="0" data-nav-dir="forward">
+  
+  <!-- Presentation Wrapper -->
+  <div id="deck-container" class="deck-container">
+    
+    <!-- Top Navigation Header -->
+    <header class="deck-header">
+      <div class="header-left">
+        <span class="mono-badge">AI ARCHITECTURE</span>
+        <span class="deck-topic">REINFORCEMENT LEARNING</span>
+      </div>
+      <div class="header-center">
+        <div class="slide-indicator" id="slideIndicator">01 / 07</div>
+      </div>
+      <div class="header-right">
+        <button id="themeToggleBtn" class="nav-btn" title="Toggle Light/Dark Mono Theme" aria-label="Toggle Theme">
+          <svg class="icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <span class="btn-text">THEME</span>
+        </button>
+        <button id="overviewToggleBtn" class="nav-btn" title="Slide Overview Grid (O)" aria-label="Slide Overview">
+          <svg class="icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+          </svg>
+          <span class="btn-text">GRID [O]</span>
+        </button>
+        <button id="notesToggleBtn" class="nav-btn" title="Presenter Notes (N)" aria-label="Presenter Notes">
+          <svg class="icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+          <span class="btn-text">NOTES [N]</span>
+        </button>
+        <button id="fullscreenBtn" class="nav-btn" title="Fullscreen Mode (F)" aria-label="Toggle Fullscreen">
+          <svg class="icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2">
+            <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Progress Bar -->
+    <div class="progress-bar-container">
+      <div id="deckProgressBar" class="progress-bar-fill" style="width: 14.28%;"></div>
+    </div>
+
+    <!-- Slides Viewport -->
+    <main class="slides-viewport" id="slidesViewport">
+
+      <!-- SLIDE 1: Title Slide -->
+      <section class="slide active" id="slide-0" data-index="0" data-title="Overview & Introduction">
+        <div class="slide-content title-slide-layout">
+          <div class="title-meta-tag">
+            <span class="pulse-dot"></span>
+            <span>FOUNDATIONS & APPLICATIONS GUIDE</span>
+          </div>
+
+          <h1 class="hero-title">
+            REINFORCEMENT<br>
+            <span class="hero-outline-text">LEARNING</span>
+          </h1>
+
+          <p class="hero-subtitle">
+            How intelligent agents learn optimal decisions by interacting with an environment through trial, error, and rewards.
+          </p>
+
+          <!-- Core Summary Banner -->
+          <div class="mono-stat-banner">
+            <div class="stat-cell">
+              <span class="stat-lbl">CORE METHOD</span>
+              <span class="stat-val">TRIAL & REWARD</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-cell">
+              <span class="stat-lbl">PRIMARY GOAL</span>
+              <span class="stat-val">MAX TOTAL REWARD</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-cell">
+              <span class="stat-lbl">LEARNING TYPE</span>
+              <span class="stat-val">SELF-DIRECTED FEEDBACK</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-cell">
+              <span class="stat-lbl">KEY TARGET</span>
+              <span class="stat-val">LONG-TERM SUCCESS</span>
+            </div>
+          </div>
+
+          <!-- Quick Navigation Cards -->
+          <div class="slide-agenda-grid" style="grid-template-columns: repeat(5, 1fr);">
+            <div class="agenda-item" onclick="goToSlide(1)">
+              <span class="agenda-num">01</span>
+              <span class="agenda-txt">What is RL?</span>
+            </div>
+            <div class="agenda-item" onclick="goToSlide(2)">
+              <span class="agenda-num">02</span>
+              <span class="agenda-txt">How It Works</span>
+            </div>
+            <div class="agenda-item" onclick="goToSlide(3)">
+              <span class="agenda-num">03</span>
+              <span class="agenda-txt">Uniqueness</span>
+            </div>
+            <div class="agenda-item" onclick="goToSlide(4)">
+              <span class="agenda-num">04</span>
+              <span class="agenda-txt">Advantages</span>
+            </div>
+            <div class="agenda-item" onclick="goToSlide(5)">
+              <span class="agenda-num">05</span>
+              <span class="agenda-txt">Applications</span>
+            </div>
+          </div>
+
+          <div class="keyboard-hint">
+            <span>Use <kbd>&larr;</kbd> <kbd>&rarr;</kbd> or <kbd>Space</kbd> to navigate &bull; Press <kbd>?</kbd> for shortcuts</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 2: Introduction to Reinforcement Learning -->
+      <section class="slide" id="slide-1" data-index="1" data-title="1. What is RL?">
+        <div class="slide-content">
+          <div class="slide-header-group">
+            <span class="section-tag">SECTION 01 // BASICS</span>
+            <h2 class="slide-heading">What is Reinforcement Learning?</h2>
+            <p class="slide-subhead">A type of machine learning where an AI agent learns by taking actions in an environment to maximize cumulative reward.</p>
+          </div>
+
+          <div class="grid-2col">
+            <!-- Left: Conceptual Foundation -->
+            <div class="content-card primary-card">
+              <div class="card-tag">THE CORE IDEA</div>
+              <h3 class="card-title">Learning by Doing</h3>
+              <p class="card-p">
+                Unlike other AI methods that need teacher answers or static files, <strong>Reinforcement Learning (RL)</strong> learns from direct experience and feedback.
+              </p>
+              
+              <div class="concept-breakdown">
+                <div class="concept-row">
+                  <div class="concept-bullet">1</div>
+                  <div class="concept-text">
+                    <strong>Autonomous Trial & Error:</strong> The agent tests actions on its own and discovers which ones give the best outcome.
+                  </div>
+                </div>
+                <div class="concept-row">
+                  <div class="concept-bullet">2</div>
+                  <div class="concept-text">
+                    <strong>Actions Have Consequences:</strong> Today's choice affects not just instant feedback, but future opportunities too.
+                  </div>
+                </div>
+                <div class="concept-row">
+                  <div class="concept-bullet">3</div>
+                  <div class="concept-text">
+                    <strong>The Reward Goal:</strong> The agent aims to maximize total points earned over the entire journey.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: 6 Fundamental Pillars -->
+            <div class="content-card">
+              <div class="card-tag">THE 6 CORE COMPONENTS</div>
+              <h3 class="card-title">Key Terminology</h3>
+              
+              <div class="mono-terms-grid">
+                <div class="term-box">
+                  <div class="term-sym">AGENT (A)</div>
+                  <div class="term-desc">The decision maker or AI learner taking actions.</div>
+                </div>
+                <div class="term-box">
+                  <div class="term-sym">ENVIRONMENT (E)</div>
+                  <div class="term-desc">The world, game, or simulation the agent interacts with.</div>
+                </div>
+                <div class="term-box">
+                  <div class="term-sym">STATE (S)</div>
+                  <div class="term-desc">The current situation or position of the agent.</div>
+                </div>
+                <div class="term-box">
+                  <div class="term-sym">ACTION (A)</div>
+                  <div class="term-desc">Any move or decision available to the agent.</div>
+                </div>
+                <div class="term-box">
+                  <div class="term-sym">REWARD (R)</div>
+                  <div class="term-desc">Feedback score (+ points for win, - for penalty).</div>
+                </div>
+                <div class="term-box">
+                  <div class="term-sym">POLICY (&pi;)</div>
+                  <div class="term-desc">The strategy or brain picking the best action for each state.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 3: Working Mechanics & The RL Feedback Loop -->
+      <section class="slide" id="slide-2" data-index="2" data-title="2. How RL Works">
+        <div class="slide-content">
+          <div class="slide-header-group">
+            <span class="section-tag">SECTION 02 // MECHANICS</span>
+            <h2 class="slide-heading">How Reinforcement Learning Works</h2>
+            <p class="slide-subhead">The continuous perception-action-reward cycle modeled as a Markov Decision Process (MDP).</p>
+          </div>
+
+          <!-- Interactive Feedback Loop & Gridworld Simulator -->
+          <div class="grid-2col mechanics-grid">
+            <!-- Left: Interactive Diagram & MDP Tuple -->
+            <div class="content-card">
+              <div class="card-tag">THE CONTINUOUS FEEDBACK LOOP</div>
+              
+              <!-- Interactive visual loop -->
+              <div class="rl-loop-diagram">
+                <div class="loop-node agent-node">
+                  <div class="node-svg-icon">
+                    <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" fill="none" stroke-width="2">
+                      <rect x="3" y="11" width="18" height="10" rx="2"></rect>
+                      <circle cx="12" cy="5" r="2"></circle>
+                      <path d="M12 7v4"></path>
+                      <line x1="8" y1="16" x2="8.01" y2="16"></line>
+                      <line x1="16" y1="16" x2="16.01" y2="16"></line>
+                    </svg>
+                  </div>
+                  <div class="node-title">AGENT</div>
+                  <div class="node-sub">Selects Action (&pi;)</div>
+                </div>
+
+                <div class="loop-arrows">
+                  <div class="arrow-track top-track">
+                    <span class="arrow-label">Takes Action &rarr;</span>
+                    <div class="stream-line"></div>
+                  </div>
+                  <div class="arrow-track bottom-track">
+                    <span class="arrow-label">&larr; Returns New State & Reward</span>
+                    <div class="stream-line reverse"></div>
+                  </div>
+                </div>
+
+                <div class="loop-node env-node">
+                  <div class="node-svg-icon">
+                    <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" fill="none" stroke-width="2">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <line x1="2" y1="12" x2="22" y2="12"></line>
+                      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                    </svg>
+                  </div>
+                  <div class="node-title">ENVIRONMENT</div>
+                  <div class="node-sub">Updates World State</div>
+                </div>
+              </div>
+
+              <!-- MDP Formulation -->
+              <div class="mdp-formula-box">
+                <div class="mdp-header">MARKOV DECISION PROCESS (MDP)</div>
+                <div class="mdp-tuple">&lang; State, Action, Probability, Reward, Discount &rang;</div>
+                <div class="mdp-legend">
+                  <span><strong>S:</strong> State Space</span>
+                  <span><strong>A:</strong> Action Space</span>
+                  <span><strong>P:</strong> Transition Chance</span>
+                  <span><strong>R:</strong> Reward Signal</span>
+                  <span><strong>&gamma;:</strong> Discount Factor (0 to 1)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: Interactive Live Simulation -->
+            <div class="content-card interactive-demo-card">
+              <div class="card-header-inline">
+                <div>
+                  <div class="card-tag">LIVE INTERACTIVE DEMO</div>
+                  <h3 class="card-title">GridWorld Path Navigation</h3>
+                </div>
+                <button id="simStepBtn" class="pill-btn primary">STEP CYCLE &gt;</button>
+              </div>
+
+              <div class="gridworld-wrapper">
+                <div id="gridworld" class="gridworld-board">
+                  <!-- Grid cells generated dynamically via JS -->
+                </div>
+                
+                <div class="sim-telemetry">
+                  <div class="telemetry-item">
+                    <span class="t-lbl">CURRENT STATE</span>
+                    <span class="t-val" id="simStateDisplay">(0, 0)</span>
+                  </div>
+                  <div class="telemetry-item">
+                    <span class="t-lbl">LAST ACTION</span>
+                    <span class="t-val" id="simActionDisplay">START</span>
+                  </div>
+                  <div class="telemetry-item">
+                    <span class="t-lbl">STEP REWARD</span>
+                    <span class="t-val" id="simRewardDisplay">0.0</span>
+                  </div>
+                  <div class="telemetry-item">
+                    <span class="t-lbl">TOTAL RETURN</span>
+                    <span class="t-val" id="simReturnDisplay">0.0</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="sim-controls">
+                <button id="simAutoBtn" class="pill-btn">AUTO-RUN</button>
+                <button id="simResetBtn" class="pill-btn">RESET</button>
+                <span class="sim-caption">Rule: Maximize total reward while avoiding hazards</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 4: Uniqueness & Comparison -->
+      <section class="slide" id="slide-3" data-index="3" data-title="3. Uniqueness of RL">
+        <div class="slide-content">
+          <div class="slide-header-group">
+            <span class="section-tag">SECTION 03 // UNIQUENESS</span>
+            <h2 class="slide-heading">What Makes Reinforcement Learning Unique?</h2>
+            <p class="slide-subhead">Clear descriptions comparing RL to other AI paradigms and its core decision-making mechanics.</p>
+          </div>
+
+          <!-- 3-Way Comparative Tab System -->
+          <div class="comparison-container">
+            <div class="comp-tabs">
+              <button class="comp-tab active" data-tab="tab-paradigm">1. DESCRIPTIVE COMPARISON</button>
+              <button class="comp-tab" data-tab="tab-tradeoff">2. EXPLORATION VS EXPLOITATION</button>
+              <button class="comp-tab" data-tab="tab-credit">3. DELAYED REWARDS</button>
+            </div>
+
+            <!-- TAB 1: Paradigm Comparison (Pure Description) -->
+            <div class="comp-content active" id="tab-paradigm">
+              <div class="comparison-matrix">
+                
+                <div class="matrix-card">
+                  <div class="m-head">SUPERVISED LEARNING</div>
+                  <p class="card-p">
+                    Learns directly from teacher examples with known answers. Given input examples, it learns to predict the correct label.
+                  </p>
+                  <div class="concept-breakdown" style="gap:8px;margin-top:auto;">
+                    <div class="concept-row" style="padding:8px 10px;">
+                      <div class="concept-text"><strong>How It Works:</strong> Compares output to the correct answer key and fixes errors.</div>
+                    </div>
+                    <div class="concept-row" style="padding:8px 10px;">
+                      <div class="concept-text"><strong>Real-Life Analogy:</strong> Studying from a solved textbook with answer sheets.</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="matrix-card">
+                  <div class="m-head">UNSUPERVISED LEARNING</div>
+                  <p class="card-p">
+                    Finds hidden patterns, clusters, and structure in raw data on its own without any labels or teacher guidance.
+                  </p>
+                  <div class="concept-breakdown" style="gap:8px;margin-top:auto;">
+                    <div class="concept-row" style="padding:8px 10px;">
+                      <div class="concept-text"><strong>How It Works:</strong> Groups similar items together based on common features.</div>
+                    </div>
+                    <div class="concept-row" style="padding:8px 10px;">
+                      <div class="concept-text"><strong>Real-Life Analogy:</strong> Organizing an uncataloged library of books by topic.</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="matrix-card highlighted-mono">
+                  <div class="m-head">REINFORCEMENT LEARNING</div>
+                  <p class="card-p">
+                    Learns by taking actions in an active world and getting feedback (rewards for success, penalties for mistakes).
+                  </p>
+                  <div class="concept-breakdown" style="gap:8px;margin-top:auto;">
+                    <div class="concept-row" style="padding:8px 10px;">
+                      <div class="concept-text"><strong>How It Works:</strong> Discovers optimal strategies through trial, error, and feedback.</div>
+                    </div>
+                    <div class="concept-row" style="padding:8px 10px;">
+                      <div class="concept-text"><strong>Real-Life Analogy:</strong> Learning to ride a bicycle by trying, balancing, and falling.</div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- TAB 2: Exploration vs Exploitation Interactive Slider -->
+            <div class="comp-content" id="tab-tradeoff">
+              <div class="bandit-interactive-box">
+                <div class="bandit-info">
+                  <h3>The Exploration vs Exploitation Trade-Off</h3>
+                  <p>Should the agent stick with known good choices (exploit), or try uncertain new actions to find better rewards (explore)?</p>
+                  
+                  <div class="slider-control">
+                    <div class="slider-labels">
+                      <span>100% EXPLOIT (&epsilon; = 0.0)</span>
+                      <span id="epsilonValDisplay">BALANCED (&epsilon; = 0.20)</span>
+                      <span>100% EXPLORE (&epsilon; = 1.0)</span>
+                    </div>
+                    <input type="range" id="epsilonSlider" min="0" max="1" step="0.05" value="0.20">
+                  </div>
+                </div>
+
+                <div class="bandit-visualizer">
+                  <div class="bandit-arms" id="banditArms">
+                    <!-- 4 Slot Machine Arms -->
+                  </div>
+                  <div class="bandit-stats" id="banditStats">
+                    Click "PULL ARM" or test different exploration rates to see how balance affects discovery.
+                  </div>
+                  <button id="pullBanditBtn" class="pill-btn primary">SIMULATE 100 PULLS</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- TAB 3: Delayed Credit Assignment -->
+            <div class="comp-content" id="tab-credit">
+              <div class="credit-assignment-layout">
+                <div class="credit-text-side">
+                  <h3>The Delayed Reward Challenge</h3>
+                  <p>In chess, move #14 might set up a checkmate on move #45. When the game ends with a win (+1), <em>which earlier moves deserve the credit?</em></p>
+                  <ul class="credit-list">
+                    <li><strong>Temporal Difference Learning:</strong> Updates score estimates step-by-step without waiting for final game completion.</li>
+                    <li><strong>Eligibility Traces (&lambda;):</strong> Remembers which actions contributed most to the final winning state.</li>
+                    <li><strong>Discount Factor (&gamma;):</strong> Balances immediate short-term points with long-term strategy.</li>
+                  </ul>
+                </div>
+                <div class="credit-visual-side">
+                  <div class="timeline-credit-chain">
+                    <div class="chain-step"><span>Move 1</span><small>Setup</small></div>
+                    <div class="chain-arrow">&rarr;</div>
+                    <div class="chain-step"><span>Move 2</span><small>Defense</small></div>
+                    <div class="chain-arrow">&rarr;</div>
+                    <div class="chain-step"><span>Move 3</span><small>Sacrifice</small></div>
+                    <div class="chain-arrow">&rarr;</div>
+                    <div class="chain-step victory"><span>Goal</span><small>Win (+10)</small></div>
+                  </div>
+                  <div class="backprop-arrow">&larr; Reward credit propagates backward to earlier smart moves &larr;</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 5: Advantages & Strengths -->
+      <section class="slide" id="slide-4" data-index="4" data-title="4. Advantages of RL">
+        <div class="slide-content">
+          <div class="slide-header-group">
+            <span class="section-tag">SECTION 04 // ADVANTAGES</span>
+            <h2 class="slide-heading">Key Advantages of Reinforcement Learning</h2>
+            <p class="slide-subhead">Why RL is chosen when traditional programming and standard ML methods fall short.</p>
+          </div>
+
+          <div class="advantages-grid">
+            <div class="adv-card">
+              <div class="adv-number">01</div>
+              <h3 class="adv-title">No Labeled Data Needed</h3>
+              <p class="adv-desc">Generates its own experience and training data through environment simulation and self-play, avoiding costly manual annotation.</p>
+              <div class="adv-tag">SELF-SUPERVISION</div>
+            </div>
+
+            <div class="adv-card">
+              <div class="adv-number">02</div>
+              <h3 class="adv-title">Superhuman Strategy Discovery</h3>
+              <p class="adv-desc">Free from human habits and biases. Discovers brand new, highly effective strategies that human experts never considered.</p>
+              <div class="adv-tag">CREATIVE SOLUTIONS</div>
+            </div>
+
+            <div class="adv-card">
+              <div class="adv-number">03</div>
+              <h3 class="adv-title">Long-Term Strategic Planning</h3>
+              <p class="adv-desc">Learns to make tactical short-term sacrifices in order to secure massive long-term winning payoffs.</p>
+              <div class="adv-tag">STRATEGIC DEPTH</div>
+            </div>
+
+            <div class="adv-card">
+              <div class="adv-number">04</div>
+              <h3 class="adv-title">Continuous Real-Time Adaptation</h3>
+              <p class="adv-desc">Continuously adapts policies when facing changing physics, dynamic market conditions, or new opponent tactics.</p>
+              <div class="adv-tag">ONLINE LEARNING</div>
+            </div>
+
+            <div class="adv-card">
+              <div class="adv-number">05</div>
+              <h3 class="adv-title">Multi-Goal Optimization</h3>
+              <p class="adv-desc">Balances multiple trade-offs at the same time (e.g., drone flight: maximizing speed while ensuring battery life and collision safety).</p>
+              <div class="adv-tag">BALANCED CONTROL</div>
+            </div>
+
+            <div class="adv-card">
+              <div class="adv-number">06</div>
+              <h3 class="adv-title">Powers AI Alignment (RLHF)</h3>
+              <p class="adv-desc">The primary technique used to train modern LLMs to be helpful, safe, factually accurate, and follow complex reasoning chains.</p>
+              <div class="adv-tag">AI ALIGNMENT</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 6: Applications & Use-Cases -->
+      <section class="slide" id="slide-5" data-index="5" data-title="5. Applications">
+        <div class="slide-content">
+          <div class="slide-header-group">
+            <span class="section-tag">SECTION 05 // USE CASES</span>
+            <h2 class="slide-heading">Where Can We Use Reinforcement Learning?</h2>
+            <p class="slide-subhead">Real-world applications across technology, robotics, finance, and engineering.</p>
+          </div>
+
+          <!-- Filterable Application Showcase -->
+          <div class="app-container">
+            <div class="app-sidebar">
+              <div class="app-nav-item active" data-app="app-llm">
+                <span class="app-ico">
+                  <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" fill="none" stroke-width="2">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                  </svg>
+                </span>
+                <div>
+                  <div class="app-nav-title">LLMs & AI Alignment</div>
+                  <div class="app-nav-sub">RLHF & Multi-Step Reasoning</div>
+                </div>
+              </div>
+
+              <div class="app-nav-item" data-app="app-robotics">
+                <span class="app-ico">
+                  <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" fill="none" stroke-width="2">
+                    <rect x="3" y="11" width="18" height="10" rx="2"></rect>
+                    <circle cx="12" cy="5" r="2"></circle>
+                    <path d="M12 7v4"></path>
+                    <line x1="8" y1="16" x2="8.01" y2="16"></line>
+                    <line x1="16" y1="16" x2="16.01" y2="16"></line>
+                  </svg>
+                </span>
+                <div>
+                  <div class="app-nav-title">Robotics & Locomotion</div>
+                  <div class="app-nav-sub">Walking, Balancing & Manipulation</div>
+                </div>
+              </div>
+
+              <div class="app-nav-item" data-app="app-games">
+                <span class="app-ico">
+                  <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" fill="none" stroke-width="2">
+                    <rect x="2" y="6" width="20" height="12" rx="2"></rect>
+                    <path d="M6 12h4m-2-2v4m7-2h.01m3-2h.01m0 4h.01"></path>
+                  </svg>
+                </span>
+                <div>
+                  <div class="app-nav-title">Gaming & Simulations</div>
+                  <div class="app-nav-sub">Chess, Go, StarCraft & Esports</div>
+                </div>
+              </div>
+
+              <div class="app-nav-item" data-app="app-finance">
+                <span class="app-ico">
+                  <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" fill="none" stroke-width="2">
+                    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                    <polyline points="17 6 23 6 23 12"></polyline>
+                  </svg>
+                </span>
+                <div>
+                  <div class="app-nav-title">Quantitative Finance</div>
+                  <div class="app-nav-sub">Order Execution & Portfolio Balancing</div>
+                </div>
+              </div>
+
+              <div class="app-nav-item" data-app="app-energy">
+                <span class="app-ico">
+                  <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" fill="none" stroke-width="2">
+                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                  </svg>
+                </span>
+                <div>
+                  <div class="app-nav-title">Energy & Operations</div>
+                  <div class="app-nav-sub">Data Center Cooling & Chip Design</div>
+                </div>
+              </div>
+
+              <div class="app-nav-item" data-app="app-autonomous">
+                <span class="app-ico">
+                  <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" fill="none" stroke-width="2">
+                    <rect x="1" y="3" width="15" height="13"></rect>
+                    <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                    <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                    <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                  </svg>
+                </span>
+                <div>
+                  <div class="app-nav-title">Self-Driving Vehicles</div>
+                  <div class="app-nav-sub">Trajectory & Highway Merging</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dynamic Detail Pane -->
+            <div class="app-detail-pane" id="appDetailPane">
+              <!-- Loaded via JavaScript based on selection -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 7: Summary & Synthesis -->
+      <section class="slide" id="slide-6" data-index="6" data-title="6. Summary & Takeaways">
+        <div class="slide-content summary-layout">
+          <div class="slide-header-group">
+            <span class="section-tag">SECTION 06 // RECAP</span>
+            <h2 class="slide-heading">Summary & Strategic Takeaways</h2>
+            <p class="slide-subhead">A concise recap of reinforcement learning concepts and future directions.</p>
+          </div>
+
+          <div class="summary-grid">
+            <!-- Recap Takeaways -->
+            <div class="content-card summary-card">
+              <div class="card-tag">THE 4 KEY TAKEAWAYS</div>
+              <div class="summary-list">
+                <div class="s-item">
+                  <span class="s-num">1</span>
+                  <div>
+                    <strong>Learning from Consequences:</strong> RL solves sequential decision problems where actions change future possibilities.
+                  </div>
+                </div>
+                <div class="s-item">
+                  <span class="s-num">2</span>
+                  <div>
+                    <strong>Self-Taught Optimization:</strong> Discovers optimal moves through trial, error, and self-play without human labels.
+                  </div>
+                </div>
+                <div class="s-item">
+                  <span class="s-num">3</span>
+                  <div>
+                    <strong>Powers Modern AI:</strong> RL with human feedback (RLHF) is the secret behind helpful, safe, reasoning LLMs.
+                  </div>
+                </div>
+                <div class="s-item">
+                  <span class="s-num">4</span>
+                  <div>
+                    <strong>Endless Applications:</strong> From robotics and self-driving cars to data centers and algorithmic finance.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Future Frontiers -->
+            <div class="content-card summary-card">
+              <div class="card-tag">FUTURE FRONTIERS</div>
+              <div class="frontier-grid">
+                <div class="f-box">
+                  <div class="f-title">WORLD MODELS</div>
+                  <p class="f-desc">Agents learning mental simulations of physics before testing risky moves in the real world.</p>
+                </div>
+                <div class="f-box">
+                  <div class="f-title">OFFLINE RL</div>
+                  <p class="f-desc">Extracting high-performance policies directly from existing historical data logs.</p>
+                </div>
+                <div class="f-box">
+                  <div class="f-title">STEP-BY-STEP REWARDS</div>
+                  <p class="f-desc">Rewarding intermediate reasoning steps in complex math, coding, and scientific research.</p>
+                </div>
+                <div class="f-box">
+                  <div class="f-title">MULTI-AGENT SWARMS</div>
+                  <p class="f-desc">Teams of specialized RL agents collaborating across smart grids and logistics.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Footer Action -->
+          <div class="summary-footer">
+            <div class="footer-left">
+              <span class="mono-badge">PRESENTATION COMPLETE</span>
+              <span class="deck-author">Reinforcement Learning Executive Deck</span>
+            </div>
+            <div class="footer-right">
+              <button class="pill-btn" onclick="goToSlide(0)">RESTART &circlearrowright;</button>
+              <button class="pill-btn primary" onclick="window.print()">PRINT / EXPORT &Square;</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Bottom Controls Deck -->
+    <footer class="deck-controls">
+      <div class="controls-left">
+        <button id="prevSlideBtn" class="control-btn" title="Previous Slide (Left Arrow / P)">
+          <svg class="icon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" fill="none" stroke-width="2">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+          <span>PREV</span>
+        </button>
+        <button id="nextSlideBtn" class="control-btn" title="Next Slide (Right Arrow / Space / N)">
+          <span>NEXT</span>
+          <svg class="icon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" fill="none" stroke-width="2">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Slide Quick Jump Dots -->
+      <div class="controls-center" id="slideDotsContainer">
+        <!-- Generated via JS -->
+      </div>
+
+      <div class="controls-right">
+        <button id="soundToggleBtn" class="control-btn icon-only" title="Toggle UI Audio">
+          <svg id="soundIcon" class="icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" fill="none" stroke-width="2">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          </svg>
+        </button>
+        <button id="autoplayBtn" class="control-btn icon-only" title="Autoplay Slides (A)">
+          <svg id="autoplayIcon" class="icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" fill="none" stroke-width="2">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+        </button>
+        <button id="helpBtn" class="control-btn icon-only" title="Keyboard Shortcuts (?)">
+          <svg class="icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" fill="none" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+          </svg>
+        </button>
+      </div>
+    </footer>
+
+    <!-- Slide Overview Modal (Grid View) -->
+    <div id="overviewModal" class="modal-backdrop">
+      <div class="modal-content overview-modal-box">
+        <div class="modal-header">
+          <h3>PRESENTATION SLIDE INDEX</h3>
+          <button class="modal-close" id="closeOverviewBtn">&times;</button>
+        </div>
+        <div class="overview-grid" id="overviewGrid">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Presenter Notes Drawer -->
+    <div id="notesDrawer" class="notes-drawer">
+      <div class="notes-header">
+        <div class="notes-title">
+          <span class="mono-badge">PRESENTER NOTES</span>
+          <span id="notesSlideTitle">Slide 1</span>
+        </div>
+        <button class="notes-close" id="closeNotesBtn">&times;</button>
+      </div>
+      <div class="notes-body" id="notesBody">
+        <!-- Populated dynamically -->
+      </div>
+    </div>
+
+    <!-- Keyboard Shortcuts Modal -->
+    <div id="shortcutsModal" class="modal-backdrop">
+      <div class="modal-content shortcuts-modal-box">
+        <div class="modal-header">
+          <h3>KEYBOARD SHORTCUTS</h3>
+          <button class="modal-close" id="closeShortcutsBtn">&times;</button>
+        </div>
+        <div class="shortcuts-grid">
+          <div class="shortcut-row"><kbd>&rarr;</kbd> or <kbd>Space</kbd> <span>Next Slide</span></div>
+          <div class="shortcut-row"><kbd>&larr;</kbd> or <kbd>P</kbd> <span>Previous Slide</span></div>
+          <div class="shortcut-row"><kbd>O</kbd> <span>Toggle Slide Overview Grid</span></div>
+          <div class="shortcut-row"><kbd>N</kbd> <span>Toggle Presenter Notes</span></div>
+          <div class="shortcut-row"><kbd>F</kbd> <span>Toggle Fullscreen Mode</span></div>
+          <div class="shortcut-row"><kbd>T</kbd> <span>Toggle Light / Dark Monochrome</span></div>
+          <div class="shortcut-row"><kbd>A</kbd> <span>Toggle Autoplay</span></div>
+          <div class="shortcut-row"><kbd>Home</kbd> / <kbd>End</kbd> <span>First / Last Slide</span></div>
+          <div class="shortcut-row"><kbd>Esc</kbd> <span>Close Modals</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

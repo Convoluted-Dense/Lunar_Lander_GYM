@@ -1,0 +1,9 @@
+# Core Deep Reinforcement Learning & Simulation
+torch>=2.0.0
+gymnasium[box2d]>=1.0.0
+numpy>=1.24.0
+matplotlib>=3.7.0
+pygame>=2.5.0
+
+# Academic Report PDF Generation (Optional)
+pymupdf>=1.23.0
