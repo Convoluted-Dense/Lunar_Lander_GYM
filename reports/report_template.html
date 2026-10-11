@@ -650,6 +650,14 @@
     </tbody>
   </table>
 
+  <!-- Figure 1: Architecture Schematic -->
+  <div class="figure-container" style="margin: 10px 0;">
+    <img src="###ARCH_DIAG_B64###" alt="Architectural Schematic Comparison" class="figure-img" style="max-height: 175px;">
+    <div class="figure-caption">
+      <strong>Figure 1: Architectural Schematic Comparison.</strong> (Left) Single-stream Baseline Vanilla DQN [2] with coupled $Q$-values and hard target synchronization. (Right) Proposed Dueling Double DQN [3], [4] with Layer Normalization [10], dual Value $V(s)$ and Advantage $A(s, a)$ manifolds, identifiability aggregation, and Binary SumTree Prioritized Experience Replay [5].
+    </div>
+  </div>
+
   <!-- ==================== SECTION 6 ==================== -->
   <h2 class="section-header">6. Why the New Architecture Trains Better & Converges Faster</h2>
   <p>
@@ -866,15 +874,15 @@
     Below we present empirical learning curves and visual rollouts recorded during head-to-head benchmarking:
   </p>
 
-  <!-- Figure 1: Training Curves -->
+  <!-- Figure 2: Training Curves -->
   <div class="figure-container">
-    <img src="###PLOT_B64###" alt="Comparative Training Telemetry" class="figure-img" style="max-height: 270px;">
+    <img src="###PLOT_B64###" alt="Comparative Training Telemetry" class="figure-img" style="max-height: 240px;">
     <div class="figure-caption">
-      Figure 1: Side-by-side training telemetry. (Top) 100-episode moving average returns demonstrating rapid convergence of Model 2 (blue) reaching solved benchmarks versus stagnant progress of Model 1 (red). (Bottom) Training loss dynamics on log-scale illustrating the stabilizing effect of weighted Huber loss in Model 2.
+      <strong>Figure 2: Empirical Training Telemetry & Convergence.</strong> (Top) 100-episode moving average returns demonstrating rapid convergence of Model 2 (blue) reaching solved benchmarks versus stagnant progress of Model 1 (red). (Bottom) Training loss dynamics on log-scale illustrating the stabilizing effect of weighted Huber loss in Model 2.
     </div>
   </div>
 
-  <!-- Figure 2: Visual Comparison -->
+  <!-- Figure 3: Visual Touchdown Comparison -->
   <div class="dual-figure" style="margin-top: 8px;">
     <div class="dual-figure-item">
       <img src="###BASE_FRAME_B64###" alt="Vanilla DQN Landing Rollout">
@@ -887,8 +895,24 @@
       <div style="font-size: 7.2pt; color: #555555;">Optimal descent (330 steps) &bull; Upright dual-leg contact &bull; 0% crash rate</div>
     </div>
   </div>
-  <div class="figure-caption" style="text-align: center; margin-top: 3px;">
-    Figure 2: Representative terminal touchdown frames captured from deterministic rollout evaluations.
+  <div class="figure-caption" style="text-align: center; margin-top: 3px; margin-bottom: 8px;">
+    <strong>Figure 3: Representative Terminal Touchdown Frames.</strong> Captured from deterministic rollout evaluations at pad contact boundary.
+  </div>
+
+  <!-- Figure 4: Flight Trajectories & Phase Plane -->
+  <div class="figure-container" style="margin: 10px 0;">
+    <img src="###TRAJ_PLOT_B64###" alt="Flight Trajectories & Control Dynamics" class="figure-img" style="max-height: 195px;">
+    <div class="figure-caption">
+      <strong>Figure 4: State-Space Trajectory Dynamics & Actuation Profile.</strong> (a) Cartesian descent paths ($x$ vs $y$) showing wide spatial dispersion in Baseline versus pinpoint pad targeting in the proposed model. (b) Altitude vs vertical velocity descent phase plane illustrating smooth terminal deceleration flare into the safe touchdown envelope. (c) Discrete thruster actuation frequency breakdown highlighting balanced attitude stabilization.
+    </div>
+  </div>
+
+  <!-- Figure 5: Statistical Benchmarks -->
+  <div class="figure-container" style="margin: 10px 0;">
+    <img src="###BENCH_PLOT_B64###" alt="Statistical Benchmarks & Flight Duration" class="figure-img" style="max-height: 195px;">
+    <div class="figure-caption">
+      <strong>Figure 5: 50-Seed Statistical Evaluation & Flight Duration Metrics.</strong> (a) Converged evaluation return distributions demonstrating zero crashes and tight variance in the proposed architecture. (b) Flight duration distribution showing 49.5% reduction in flight steps (propellant savings). (c) Step-by-step cumulative reward trajectories.
+    </div>
   </div>
 
   <!-- ==================== SECTION 9 ==================== -->

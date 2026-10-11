@@ -25,6 +25,9 @@ logo_b64 = get_base64_img("reports/woxsen_logo_stacked_clean.png")
 plot_b64 = get_base64_img("reports/training_comparison.png")
 adv_frame_b64 = get_base64_img("reports/rollouts/advanced_frame.png")
 base_frame_b64 = get_base64_img("reports/rollouts/baseline_frame.png")
+arch_diag_b64 = get_base64_img("reports/architecture_diagram.png")
+traj_plot_b64 = get_base64_img("reports/flight_trajectories.png")
+bench_plot_b64 = get_base64_img("reports/statistical_benchmarks.png")
 
 template_path = "reports/report_template.html"
 with open(template_path, "r", encoding="utf-8") as f:
@@ -35,6 +38,9 @@ html_content = (
     .replace("###PLOT_B64###", plot_b64)
     .replace("###BASE_FRAME_B64###", base_frame_b64)
     .replace("###ADV_FRAME_B64###", adv_frame_b64)
+    .replace("###ARCH_DIAG_B64###", arch_diag_b64)
+    .replace("###TRAJ_PLOT_B64###", traj_plot_b64)
+    .replace("###BENCH_PLOT_B64###", bench_plot_b64)
 )
 
 html_path = "reports/FOAI_LunarLander_RL_Project_Report.html"

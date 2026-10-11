@@ -35,13 +35,29 @@ Rigorous 50-seed statistical evaluation demonstrates that our proposed architect
 
 ---
 
-## 📈 Training Convergence & Rollout Visualizations
+## 🏗️ Architectural Schematic Comparison
 
-### 1. Dual-Panel Training Curves
+![Architecture Comparison](reports/architecture_diagram.png)
+
+*(Left: Single-stream Baseline Vanilla DQN with coupled value estimation and hard target synchronization. Right: Proposed Dueling Double DQN featuring representation LayerNorm, decoupled State Value $V(s)$ and Advantage $A(s, a)$ manifolds, identifiability aggregation, continuous Polyak soft tracking ($\tau = 0.005$), and $\mathcal{O}(\log_2 N)$ Binary SumTree Prioritized Experience Replay).*
+
+---
+
+## 📈 Training Convergence & Flight Visualizations
+
+### 1. Dual-Panel Training Telemetry & Loss Curves
 ![Training Comparison](reports/training_comparison.png)
 *(Top: 100-episode moving average returns illustrating rapid convergence of the proposed model beyond the +200 solved threshold. Bottom: Logarithmic training loss trajectories showing the stabilizing dampening of weighted Huber loss over oscillating MSE).*
 
-### 2. Touchdown Contact States
+### 2. State-Space Flight Trajectories & Phase Portrait Dynamics
+![Flight Trajectories](reports/flight_trajectories.png)
+*(Panel a: Cartesian trajectories ($x$ vs $y$) showing high spatial dispersion in Baseline vs pinpoint pad targeting in the proposed model. Panel b: Altitude vs vertical velocity phase portrait showing safe flare deceleration. Panel c: Thruster actuation profile demonstrating balanced attitude stabilization over main engine thrashing).*
+
+### 3. 50-Seed Statistical Evaluation & Propellant Savings
+![Statistical Benchmarks](reports/statistical_benchmarks.png)
+*(Panel a: Converged evaluation return distributions with zero crashes and tight variance. Panel b: Flight duration distribution highlighting 49.5% reduction in flight steps. Panel c: Step-by-step cumulative reward trajectories).*
+
+### 4. Terminal Touchdown Contact States
 | Model 1: Baseline Vanilla DQN | Model 2: Proposed Dueling DDQN + PER |
 |:---:|:---:|
 | <img src="reports/rollouts/baseline_frame.png" width="380" alt="Baseline Frame"/> | <img src="reports/rollouts/advanced_frame.png" width="380" alt="Advanced Frame"/> |
