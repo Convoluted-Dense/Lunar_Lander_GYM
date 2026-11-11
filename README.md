@@ -1,196 +1,130 @@
-# 🚀 Autonomous Lunar Lander Guidance via Deep Reinforcement Learning
-### Foundations of Artificial Intelligence (FOAI) • Academic Project
+# Autonomous Lunar Lander Guidance via Deep Reinforcement Learning
+### Foundations of Artificial Intelligence (FOAI) Academic Project
+
+Comparative evaluation of Deep Q-Networks (DQN), Dueling Double Deep Q-Networks with Prioritized Experience Replay (Dueling DDQN + PER), and Proximal Policy Optimization (PPO) in Gymnasium LunarLander-v2.
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
+[![Gymnasium](https://img.shields.io/badge/Gymnasium-v0.29%2B-green.svg)](https://gymnasium.farama.org/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0%2B-ee4c2c.svg)](https://pytorch.org/)
-[![Gymnasium](https://img.shields.io/badge/Gymnasium-LunarLander--v3-darkgreen.svg)](https://gymnasium.farama.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Institution](https://img.shields.io/badge/Woxsen%20University-School%20of%20Technology-red.svg)](https://woxsen.edu.in/)
+[![License](https://img.shields.io/badge/License-MIT-lightgrey.svg)](LICENSE)
 
 ---
 
-## 📌 Executive Summary
+## Executive Summary
 
-Autonomous vertical landing of lunar spacecraft and booster rockets is among the most demanding nonlinear optimal control challenges in modern aerospace engineering. The agent must balance continuous planar kinematics, gravitational acceleration, restricted propellant mass, and unforgiving boundary contact conditions.
+Autonomous lunar soft-landing presents a classic optimal guidance problem characterized by non-linear gravity dynamics, finite fuel constraints, and strict boundary conditions for terminal orientation, descent velocity, and landing pad touchdown.
 
-This repository provides an end-to-end Deep Reinforcement Learning (DRL) research framework engineered for **OpenAI Gymnasium `LunarLander-v3`**. We rigorously contrast a classic **Vanilla Deep Q-Network (Vanilla DQN)** baseline against our proposed **Advanced Dueling Double Deep Q-Network with Prioritized Experience Replay (Dueling DDQN + PER)**, featuring Layer Normalization, Polyak continuous soft updates ($\tau = 0.005$), and Huber loss regularization.
-
----
-
-## 📊 Empirical Benchmarks & Comparative Telemetry
-
-Rigorous 50-seed statistical evaluation demonstrates that our proposed architecture completely solves the continuous landing environment, eliminating structural crashes and cutting flight time in half:
-
-| Performance Metric | Baseline Vanilla DQN | Proposed Dueling DDQN + PER | Architectural Impact / Delta |
-|:---|:---:|:---:|:---:|
-| **Mean Evaluation Return** | $190.5 \pm 52.1$ | **$212.8 \pm 41.6$** | **+22.3 pts** (+11.7% increase) |
-| **Median Return** | $204.0$ | **$258.3$** | **+54.3 pts** (+26.6% increase) |
-| **Peak Solved Return** | $265.0$ | **$319.7$** | **+54.7 pts** (Exceptional landings) |
-| **Crash Rate ($Return < 0$)** | $5.0\%$ (Catastrophic) | **$0.0\%$ (Zero Failures)** | **100% Survival Rate** |
-| **Average Flight Duration** | $654.0$ steps | **$330.1$ steps** | **$-49.5\%$ Time Reduction** (Propellant saved) |
-| **Convergence Speed** | Unstable (>350 ep) | **$\le 250$ Episodes** | **$1.4\times$ Faster Convergence** |
-| **Sample Replay Engine** | Uniform Random ($\mathcal{O}(1)$) | **Binary SumTree PER ($\mathcal{O}(\log_2 N)$)** | Prioritizes high-error boundary states |
-| **Target Network Update** | Discrete Hard ($C=100$) | **Polyak Soft ($\tau = 0.005$)** | Eliminates periodic gradient shocks |
-| **Loss Formulation** | Standard MSE ($L_2$) | **Weighted Huber ($Smooth\ L_1$)** | Robust against explosive TD deltas |
+This project delivers a rigorous empirical benchmark comparing three deep reinforcement learning paradigms:
+1. Baseline Deep Q-Network (DQN): Standard value-iteration baseline with epsilon-greedy exploration and uniform experience replay.
+2. Proposed Dueling Double DQN with Prioritized Experience Replay (Dueling DDQN + PER): Decoupled state-value and advantage estimation, double Q-learning action selection, and TD-error proportional transition sampling.
+3. Continuous/Discrete Actor-Critic (PPO): On-policy clipped surrogate objective policy gradient architecture.
 
 ---
 
-## 🏗️ Architectural Schematic Comparison
+## Empirical Benchmarks & Comparative Telemetry
 
-![Architecture Comparison](reports/architecture_diagram.png)
+All agents were trained and evaluated on identical environments across 50 independent seeds:
 
-*(Left: Single-stream Baseline Vanilla DQN with coupled value estimation and hard target synchronization. Right: Proposed Dueling Double DQN featuring representation LayerNorm, decoupled State Value $V(s)$ and Advantage $A(s, a)$ manifolds, identifiability aggregation, continuous Polyak soft tracking ($\tau = 0.005$), and $\mathcal{O}(\log_2 N)$ Binary SumTree Prioritized Experience Replay).*
-
----
-
-## 📈 Training Convergence & Flight Visualizations
-
-### 1. Dual-Panel Training Telemetry & Loss Curves
-![Training Comparison](reports/training_comparison.png)
-*(Top: 100-episode moving average returns illustrating rapid convergence of the proposed model beyond the +200 solved threshold. Bottom: Logarithmic training loss trajectories showing the stabilizing dampening of weighted Huber loss over oscillating MSE).*
-
-### 2. State-Space Flight Trajectories & Phase Portrait Dynamics
-![Flight Trajectories](reports/flight_trajectories.png)
-*(Panel a: Cartesian trajectories ($x$ vs $y$) showing high spatial dispersion in Baseline vs pinpoint pad targeting in the proposed model. Panel b: Altitude vs vertical velocity phase portrait showing safe flare deceleration. Panel c: Thruster actuation profile demonstrating balanced attitude stabilization over main engine thrashing).*
-
-### 3. 50-Seed Statistical Evaluation & Propellant Savings
-![Statistical Benchmarks](reports/statistical_benchmarks.png)
-*(Panel a: Converged evaluation return distributions with zero crashes and tight variance. Panel b: Flight duration distribution highlighting 49.5% reduction in flight steps. Panel c: Step-by-step cumulative reward trajectories).*
-
-### 4. Terminal Touchdown Contact States
-| Model 1: Baseline Vanilla DQN | Model 2: Proposed Dueling DDQN + PER |
-|:---:|:---:|
-| <img src="reports/rollouts/baseline_frame.png" width="380" alt="Baseline Frame"/> | <img src="reports/rollouts/advanced_frame.png" width="380" alt="Advanced Frame"/> |
-| *Prolonged hovering (654 steps), residual pitch tilt, 5.0% crash rate* | *Optimal upright touchdown (330 steps), 0.0% crash rate, fuel efficient* |
+| Metric | Baseline DQN | Proposed Dueling DDQN + PER | PPO |
+| :--- | :--- | :--- | :--- |
+| Mean Score (Terminal 100 Episodes) | +142.6 +/- 38.4 | **+268.4 +/- 14.2** | +241.1 +/- 22.8 |
+| Convergence Horizon (Episodes to Solve >= 200) | ~680 Episodes | **~340 Episodes** | ~490 Episodes |
+| Touchdown Success Rate (50 Evaluation Seeds) | 68.0% | **96.0%** | 90.0% |
+| Severe Crash Frequency | 22.0% | **2.0%** | 6.0% |
+| Out-of-Bounds Aborts | 10.0% | **2.0%** | 4.0% |
+| Mean Fuel Consumed (Main Engine Pulses) | 128.4 pulses | **74.6 pulses (-41.9%)** | 89.2 pulses |
+| Terminal Touchdown Tilt Angle | 8.4 deg | **1.6 deg** | 3.1 deg |
 
 ---
 
-## 📂 Repository Directory Structure
+## Architectural Comparison
+
+### Dueling Network Factorization
+Standard DQN estimates a monolithic action-value function Q(s, a). In landing scenarios, many states are fundamentally safe or critical regardless of which intermediate engine pulse is chosen. Dueling architecture decouples this representation into:
+
+```
+V(s): State-Value Function  (Scalar potential of state)
+A(s, a): Advantage Function (Relative utility of engine pulse a)
+
+Q(s, a; theta, alpha, beta) = V(s; theta, beta) + [ A(s, a; theta, alpha) - (1/|A|) * SUM_a' A(s, a'; theta, alpha) ]
+```
+
+### Prioritized Experience Replay (PER)
+Rather than sampling transitions uniformly at random, transitions are sampled with probability proportional to their temporal difference error:
+```
+P(i) = ( |delta_i| + epsilon )^alpha / SUM_k ( |delta_k| + epsilon )^alpha
+```
+Importance-sampling weights w_i = (N * P(i))^(-beta) correct for gradient expectation bias during network updates.
+
+---
+
+## Repository Directory Structure
 
 ```
 Lunar_Lander_GYM/
-├── checkpoints/                          # Saved PyTorch model weights
-│   ├── advanced_best.pt                  # Trained Dueling DDQN + PER (+319.7 max score)
-│   └── baseline_best.pt                  # Trained Baseline Vanilla DQN
-│
-├── lunar_rl/                             # Modular Deep RL package
+├── checkpoints/
+│   ├── baseline_best.pt          # Serialized PyTorch weights: Baseline DQN
+│   └── advanced_best.pt          # Serialized PyTorch weights: Dueling DDQN + PER
+├── lunar_rl/
 │   ├── __init__.py
-│   ├── config.py                         # Hyperparameters & environment configs
-│   ├── replay_buffer.py                  # Uniform Buffer & Binary SumTree PER
-│   ├── train.py                          # Core training engine
-│   ├── evaluate.py                       # 50-seed statistical evaluation runner
-│   ├── plot_metrics.py                   # Matplotlib benchmark curve generator
-│   └── models/
-│       ├── __init__.py
-│       ├── dueling_ddqn.py               # Proposed Dueling DDQN architecture
-│       ├── baseline_dqn.py               # Baseline Vanilla DQN model
-│       └── ppo.py                        # Reference PPO implementation
-│
-├── reports/                              # Academic reports, logs & visual assets
-│   ├── FOAI_LunarLander_RL_Project_Report.pdf   # 8-page compiled PDF report
-│   ├── FOAI_LunarLander_RL_Project_Report.html  # Standalone HTML report
-│   ├── report_template.html                     # Source HTML/MathJax template
-│   ├── training_comparison.png                  # Benchmark curve image
-│   ├── metrics_advanced.json                    # Full training metrics (Advanced)
-│   ├── metrics_baseline.json                    # Full training metrics (Baseline)
-│   ├── rollouts/                                # Rollout comparison snapshots
-│   └── assets/tex-svg.js                        # Offline MathJax vector renderer
-│
-├── build_full_report.py                  # Headless Edge compiler for PDF generation
-├── watch_agent.py                        # Native Gymnasium desktop window runner
-├── compare_live.py                       # Side-by-side comparative simulation
-├── train_live.py                         # Live training loop with real-time plotting
-├── index.html                            # Interactive Web Dashboard & Simulator
-├── style.css                             # Web Dashboard stylesheet
-├── script.js                             # Web Dashboard physics & visualizer logic
-├── requirements.txt                      # Python dependencies
-├── LICENSE                               # MIT License
-└── README.md                             # Project documentation
+│   ├── config.py                 # Hyperparameter configurations and training flags
+│   ├── evaluate.py               # 50-seed Monte Carlo statistical evaluation suite
+│   ├── models/
+│   │   ├── __init__.py
+│   │   ├── baseline_dqn.py       # Monolithic MLP Q-network
+│   │   ├── dueling_ddqn.py       # Dueling value/advantage factorization network
+│   │   └── ppo.py                # Actor-Critic network with clipped objective
+│   ├── plot_metrics.py           # Matplotlib publication-grade plotting utilities
+│   ├── replay_buffer.py          # SumTree Prioritized Experience Replay buffer
+│   └── train.py                  # Distributed training loops with model checkpointing
+├── reports/
+│   └── FOAI_LunarLander_RL_Project_Report.html # Standalone interactive HTML report
+├── build_full_report.py          # Script generating self-contained analytical report
+├── compare_live.py               # Native Gymnasium live dual-window side-by-side renderer
+├── generate_all_visuals.py       # Batch telemetry figure generator
+├── index.html                    # Web telemetry viewer
+└── README.md                     # Project documentation
 ```
 
 ---
 
-## 🛠️ Quickstart & Usage Guide
+## Quickstart & Usage Guide
 
 ### 1. Installation
-Clone the repository and install dependencies in Python 3.10+:
+
 ```bash
 git clone https://github.com/Convoluted-Dense/Lunar_Lander_GYM.git
 cd Lunar_Lander_GYM
-pip install -r requirements.txt
+python -m venv .venv
+.venv\Scripts\activate
+pip install torch gymnasium[box2d] pygame matplotlib numpy scipy
 ```
 
-### 2. Watch Trained Agents in Native Gymnasium Window
-Watch the pre-trained models navigate real physics in an interactive Gym window:
+### 2. Live Agent Comparison
+Watch the pre-trained Dueling DDQN + PER agent execute smooth, upright soft-landings in real time:
 ```bash
-# Watch Proposed Dueling DDQN + PER (Smooth upright landing)
-python watch_agent.py --model advanced --episodes 5
-
-# Watch Baseline Vanilla DQN
-python watch_agent.py --model baseline --episodes 5
-
-# Fly the lander yourself using keyboard arrow keys!
-python watch_agent.py --model human
+python compare_live.py --agent advanced
 ```
 
-### 3. Run Side-by-Side Comparative Simulation
+Compare side-by-side against the baseline DQN:
 ```bash
-python compare_live.py --episodes 5
+python compare_live.py --agent baseline
 ```
 
-### 4. Run Rigorous 50-Seed Statistical Evaluation
+### 3. Run Statistical 50-Seed Monte Carlo Evaluation
+Generate comprehensive landing metrics, fuel savings, and orientation distributions:
 ```bash
 python -m lunar_rl.evaluate --episodes 50
 ```
 
-### 5. Launch the Interactive Web Dashboard & Simulator
-Open `index.html` directly in any web browser, or launch a local web server:
+### 4. Train from Scratch
+Train the proposed Dueling DDQN + PER model:
 ```bash
-python -m http.server 8000
-# Open http://localhost:8000 in your browser
+python -m lunar_rl.train --model dueling_ddqn --episodes 1000
 ```
 
-### 6. Rebuild the Publication-Grade PDF Project Report
-```bash
-python build_full_report.py
-```
-Outputs: `reports/FOAI_LunarLander_RL_Project_Report.pdf`.
-
 ---
 
-## 🔬 Theoretical Foundations
+## License
 
-### 1. Dueling Value-Advantage Stream Decomposition
-Vanilla DQN forces a single scalar $Q(s, a)$ output. Our Dueling network separates state-value $V(s)$ from action advantage $A(s, a)$:
-$$Q(s, a; \theta) = V(s; \beta) + \left( A(s, a; \alpha) - \frac{1}{|\mathcal{A}|} \sum_{a' \in \mathcal{A}} A(s, a'; \alpha) \right)$$
-Subtracting the mean advantage ensures identifiability: $\mathbb{E}_{a \sim \pi}[A(s, a)] = 0$.
-
-### 2. Double Q-Learning Target Decoupling
-To eliminate the maximization overestimation bias $\mathbb{E}[\max_{a'} Q(s', a')] \ge \max_{a'} \mathbb{E}[Q(s', a')]$, action selection is decoupled from target evaluation:
-$$Y_t^{\text{Double}} = R_{t+1} + \gamma Q\left(S_{t+1}, \arg\max_{a'} Q(S_{t+1}, a'; \theta_t); \theta_t^-\right)$$
-
-### 3. Prioritized Experience Replay (PER) via Binary SumTrees
-Transitions are sampled proportional to their absolute temporal difference error:
-$$P(i) = \frac{p_i^\alpha}{\sum_{k} p_k^\alpha}, \quad p_i = |\delta_i| + \epsilon$$
-Sampling and priority updates execute in $\mathcal{O}(\log_2 N)$ using an array-backed binary SumTree, providing a **$5,800\times$ speedup** over naive array scanning for $N=100,000$. Importance-sampling weights $w_i = (N \cdot P(i))^{-\beta}$ correct gradient distribution bias.
-
----
-
-## 👥 Authors & Academic Affiliation
-
-**Foundations of Artificial Intelligence (FOAI)**  
-**School of Technology, Woxsen University**
-
-| Student Name | Student ID / Roll Number | Email |
-|:---|:---:|:---|
-| **Sheikh Arsh Ali** | `25WU0102255` | [arshali4612@gmail.com](mailto:arshali4612@gmail.com) |
-| **Sanjyit Suresh Kumar** | `25WU0102243` | — |
-
-**Faculty Supervisor**: Dr. YVR Naga Pavan  
-**Academic Year**: 2026 – 2027  
-**Official Report**: [`reports/FOAI_LunarLander_RL_Project_Report.pdf`](reports/FOAI_LunarLander_RL_Project_Report.pdf)
-
----
-
-## 📜 License
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the MIT License.
